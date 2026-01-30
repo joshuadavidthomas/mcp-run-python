@@ -14,6 +14,27 @@
 </div>
 <br/>
 
+---
+
+# NOTICE
+
+We've decided to retire and archive this project - there's just no safe way to run Python within pyodide safely with reasonable latency.
+
+Instead, we're working hard on [Monty](https://github.com/pydantic/monty) which should solve the usecase we initially intended for `mcp-run-python`, with better security, lower latency, easier install, and better ways to communicate with the OS.
+
+If you want to use this projects code, or otherwise use pyodide to run LLM generated code, feel free to do so.
+
+However be extremely careful about how you sandbox the service and what code you allow to run.
+
+In particular **Python code running in pyodide can run arbitrary javascript** meaning it can do whatever the javascript runtime running pydodie can do, including:
+* tainting that runtime to control or alter how code runs on later onvocations
+* reading and/or writing to any files that runtime has access to
+* OOMing the machine by consuming all memory - deno has no good way limit memory usage
+
+These issues are not problems with Pyodide or Deno - they're behaving as advertised, it's just that those tools were not designed as sandboxes to run untrusted code.
+
+---
+
 Code is executed using [Pyodide](https://pyodide.org) in [Deno](https://deno.com/) and is therefore isolated from
 the rest of the operating system.
 
